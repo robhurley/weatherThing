@@ -9,4 +9,28 @@ block content
     ul Pressure: #{weatherData.pressure} #{locals.pUnits}
     span #{weatherData.time}
   +panel("Forecast", "primary")
+    .row
+      - var iconToCSS = {};
+      - iconToCSS['clear-day'] = 'i class="wi wi-day-sunny"';
+      - iconToCSS['rain'] = 'i class="wi wi-day-rain"';
+      - iconToCSS['snow'] = 'i class="wi wi-day-snow"';
+      - iconToCSS['sleet'] = 'i class="wi wi-day-sleet"';
+      - iconToCSS['wind'] = 'i class="wi wi-day-windy"';
+      - iconToCSS['fog'] = 'i class="wi wi-day-fog"';
+      - iconToCSS['cloudy'] = 'i class="wi wi-day-cloudy"';
+      - iconToCSS['partly-cloudy-day'] = 'i class="wi wi-day-partly-cloudy"';
+      - var dayToText = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      - for (var i = 0; i < locals.forcast.daily.data.length; i++) {
+      .col-md-3.col-sm-6.col-xs-12
+        - var day = new Date(locals.forcast.daily.data[i].time*1000);
+        +panel(dayToText[day.getDay()], "default")
+          #{iconToCSS[locals.forcast.daily.data[i].icon]}
+          p
+            span High: #{Math.round(locals.forcast.daily.data[i].temperatureMax)}&deg;#{locals.tempUnits}
+            br
+            span Low: #{Math.round(locals.forcast.daily.data[i].temperatureMin)}&deg;#{locals.tempUnits}
+            br
+          p Summary: #{locals.forcast.daily.data[i].summary}
+      - }
     span #[a(href="https://darksky.net/poweredby/") Powered by Dark Sky]
+  
