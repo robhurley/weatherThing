@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  +panel("Current Conditions", "primary")
+    ul Outside temp: #{weatherData.outtemp}&deg;#{locals.tempUnits}
+    ul Inside Temperature: #{weatherData.intemp}&deg;#{locals.tempUnits}
+    ul Outside Humidity: #{weatherData.outhumidity}%
+    ul Inside Humidity: #{weatherData.inhumidity}%
+    ul Pressure: #{weatherData.pressure} #{locals.pUnits}
+    span #{weatherData.time}
+  +panel("Forecast", "primary")
+    span #[a(href="https://darksky.net/poweredby/") Powered by Dark Sky]
